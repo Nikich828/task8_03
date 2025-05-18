@@ -1,0 +1,20 @@
+stages:
+  - test
+  - build
+
+
+test:
+  stage: test
+  image: golang:1.17
+  script:
+    - go test .
+  tags:
+    - netology
+
+build:
+  stage: build
+  script:
+    - docker build .
+  tags:
+    - netology
+
