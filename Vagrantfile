@@ -12,9 +12,9 @@ Vagrant.configure("2") do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
-  config.vm.box = "ubuntu/jammy64"
-
-  # Disable automatic box update checking. If you disable this, then
+  config.vm.box = "ubuntu/bionic64"
+# config.vm.box = "https://storage.yandexcloud.net/dtomin-netology/netology_8-2_jenkins_v3_go16.box"  #!!!how to connect to VM: ssh netology@192.168.56.10  pass: netology
+  ## Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
   # `vagrant box outdated`. This is not recommended.
   # config.vm.box_check_update = false
@@ -39,8 +39,6 @@ Vagrant.configure("2") do |config|
   # your network.
   # config.vm.network "public_network"
 
-  # config.vm.disk :disk, size: "15GB", primary: true
-
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
@@ -56,7 +54,8 @@ Vagrant.configure("2") do |config|
   #   vb.gui = true
   #
   #   # Customize the amount of memory on the VM:
-    vb.memory = "4096"
+    vb.memory = "6072"
+    vb.cpus = "3"
   end
   #
   # View the documentation for the provider you are using for more
@@ -68,23 +67,29 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: <<-SHELL
     export DEBIAN_FRONTEND=noninteractive
     apt-get update
-    # install docker & docker-compose
-    apt-get install -y docker.io docker-compose
-    # install gitlab: https://about.gitlab.com/install/#ubuntu
-    apt-get install -y curl openssh-server ca-certificates tzdata perl
-    curl https://packages.gitlab.com/install/repositories/gitlab/gitlab-ee/script.deb.sh | sudo bash
-    sudo EXTERNAL_URL="http://gitlab.localdomain" apt-get install gitlab-ee
-    # pull some images in advance
-    docker pull gitlab/gitlab-runner:latest
-    docker pull sonarsource/sonar-scanner-cli:latest
-    docker pull golang:1.17
-    docker pull docker:latest
-    # set sysctl for sonarqube
-    sysctl vm.max_map_count=262144
-    # run sonarqube
-    # cd /vagrant && docker-compose up -d
-    # add some records to /etc/hosts
+    # install java runtime environment
+    apt-get install -y default-jre
+    # install docker
+    apt-get install -y docker.io
+    # add nexus docker repo to daemon.json and restart docker
+    echo -e '{\n  "insecure-registries" : ["ubuntu-bionic:8082"]\n}' > /etc/docker/daemon.json
+    systemctl restart docker
+    # add repo and install jenkins
+    curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo tee   /usr/share/keyrings/jenkins-keyring.asc > /dev/null
+    echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc]   https://pkg.jenkins.io/debian-stable binary/ | sudo tee   /etc/apt/sources.list.d/jenkins.list > /dev/null
+    apt-get update -o Acquire::https::Verify-Peer=false
+    apt-get -y -o Acquire::https::Verify-Peer=false install jenkins
+    # jenkins user should be able to use docker
+    usermod -a -G docker jenkins
+    usermod -a -G docker vagrant
+    systemctl restart jenkins
+    # pull nexus image in advance
+    docker pull sonatype/nexus3
+    #install GO
+    wget https://go.dev/dl/go1.17.5.linux-amd64.tar.gz
+    tar -C /usr/local -xzf go1.17.5.linux-amd64.tar.gz
+    echo 'export PATH=$PATH:/usr/local/go/bin' >> /etc/profile
+    
     echo -e "192.168.56.10\tubuntu-bionic\tubuntu-bionic" >> /etc/hosts
-    echo -e "192.168.56.10\tgitlab.localdomain\tgitlab" >> /etc/hosts
   SHELL
 end
