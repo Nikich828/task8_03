@@ -34,38 +34,42 @@
 
 В качестве ответа в репозиторий шаблона с решением добавьте скриншоты с настройками раннера в проекте.
 
-![alt text](https://github.com/Nikich828/9-02-hw/blob/main/img/img1.png)
+![alt text](https://github.com/Nikich828/task8_03/blob/main/img/img1.png)
+![alt text](https://github.com/Nikich828/task8_03/blob/main/img/img2.png)
+![alt text](https://github.com/Nikich828/task8_03/blob/main/img/img3.png)
+![alt text](https://github.com/Nikich828/task8_03/blob/main/img/img4.png)
+![alt text](https://github.com/Nikich828/task8_03/blob/main/img/img5.png)
+![alt text](https://github.com/Nikich828/task8_03/blob/main/img/img6.png)
+![alt text](https://github.com/Nikich828/task8_03/blob/main/img/img7.png)
+![alt text](https://github.com/Nikich828/task8_03/blob/main/img/img8.png)
+![alt text](https://github.com/Nikich828/task8_03/blob/main/img/img9.png)
+![alt text](https://github.com/Nikich828/task8_03/blob/main/img/img10.png)
+![alt text](https://github.com/Nikich828/task8_03/blob/main/img/img11.png)
+![alt text](https://github.com/Nikich828/task8_03/blob/main/img/img12.png)
+![alt text](https://github.com/Nikich828/task8_03/blob/main/img/img13.png)
+![alt text](https://github.com/Nikich828/task8_03/blob/main/img/img14.png)
+![alt text](https://github.com/Nikich828/task8_03/blob/main/img/img15.png)
+![alt text](https://github.com/Nikich828/task8_03/blob/main/img/img16.png)
+![alt text](https://github.com/Nikich828/task8_03/blob/main/img/img17.png)
+![alt text](https://github.com/Nikich828/task8_03/blob/main/img/img18.png)
+![alt text](https://github.com/Nikich828/task8_03/blob/main/img/img19.png)
+![alt text](https://github.com/Nikich828/task8_03/blob/main/img/img20.png)
+![alt text](https://github.com/Nikich828/task8_03/blob/main/img/img21.png)
+![alt text](https://github.com/Nikich828/task8_03/blob/main/img/img22.png)
 
 
 
 
 ### Задание 2
 
-Установите Zabbix Agent на два хоста.
+Что нужно сделать:
 
-1. `Выполняя ДЗ, сверяйтесь с процессом отражённым в записи лекции`
-2. `Установите Zabbix Agent на 2 вирт.машины, одной из них может быть ваш Zabbix Server`
-3. `Добавьте Zabbix Server в список разрешенных серверов ваших Zabbix Agentов`
-4. `Добавьте Zabbix Agentов в раздел Configuration > Hosts вашего Zabbix Servera`
-5. `Проверьте, что в разделе Latest Data начали появляться данные с добавленных агентов`
+1. `Запушьте репозиторий на GitLab, изменив origin. Это изучалось на занятии по Git`
+2. `Создайте .gitlab-ci.yml, описав в нём все необходимые, на ваш взгляд, этапы`
 
-1. `Приложите в файл README.md скриншот раздела Configuration > Hosts, где видно, что агенты подключены к серверу`
-2. `Приложите в файл README.md скриншот лога zabbix agent, где видно, что он работает с сервером`
-3. `Приложите в файл README.md скриншот раздела Monitoring > Latest data для обоих хостов, где видны поступающие от агентов данные.`
-4. `Приложите в файл README.md текст использованных команд в GitHub`
+В качестве ответа в шаблон с решением добавьте:
 
+файл gitlab-ci.yml для своего проекта или вставьте код в соответствующее поле в шаблоне;
+скриншоты с успешно собранными сборками.
 
-![alt text](https://github.com/Nikich828/9-02-hw/blob/main/img/img2.png)
-![alt text](https://github.com/Nikich828/9-02-hw/blob/main/img/img3.png)
-![alt text](https://github.com/Nikich828/9-02-hw/blob/main/img/img4.png)
-![alt text](https://github.com/Nikich828/9-02-hw/blob/main/img/img5.png)
-
-```
-apt update && apt install postgresql
-wget https://repo.zabbix.com/zabbix/6.0/debian/pool/main/z/zabbix-release/zabbix-release_latest_6.0+debian11_all.deb
-dpkg -i zabbix-release_latest_6.0+debian11_all.deb
-apt install zabbix-agent
-systemctl restart zabbix-agent
-systemctl enable zabbix-agent
-
-```
+![alt text](https://github.com/Nikich828/task8_03/blob/main/img/img23.png)
